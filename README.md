@@ -5,9 +5,9 @@
 ## 기술 스택
 
 - Python, FastAPI
-- StatseModel
+- SQLAlchemy 2.0, PostgreSQL
+- Scikit-Learn
 
 
-## 모델 방법
+## 정선 해양 정보
 
-모델 수식효과를 개발하였습니다.
