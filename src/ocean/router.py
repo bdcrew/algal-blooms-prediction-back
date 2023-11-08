@@ -12,3 +12,6 @@ router = APIRouter(
 @router.get("/")
 async def read_ocean(db: Session = Depends(get_db)):
     pass
+
+@router.post("/")
+async def invp

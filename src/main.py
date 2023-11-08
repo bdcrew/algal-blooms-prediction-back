@@ -2,7 +2,6 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from src.config.db import Base, engine
 
 app = FastAPI()
 
@@ -21,9 +20,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 @app.get('/')
 async def root():
     return {"message": "Remake Ocean Project"}
+
+
+@app.get('/health')
+async def health():
+    return {"message": "health checking"}
 
 
 if __name__ == '__main__':

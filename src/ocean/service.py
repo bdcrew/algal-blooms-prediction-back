@@ -1,7 +1,6 @@
 from math import exp
 
 import pandas as pd
-import statsmodels.api as sm
 from fastapi import HTTPException
 from pandas import DataFrame, Series
 
@@ -34,19 +33,12 @@ class OceanModel:
         self.independent_variables_with_constant = None
         self.logit_model = None
 
-    async def load_ocean_data(self):
-        if self.independent_variables is None || self.dependent_variable is None:
-            raise HTTPException(status_code=418, detail="데이터 입력을 하지 않았습니다.")
-
-        # 관련 종속 변수의 데이터를 가져옵니다.
-        ocean_df = await pd.read_sql('ocean', con=conn)
-
-        # 개발 환경에서 작업을
-
-
     async def fit_model(self):
-        self.independent_variables_with_constant = sm.add_constant(self.independent_variables, prepend=True)
-        self.logit_model = sm.Logit(self.dependent_variable, self.independent_variables, missing='drop').fit()
+        """
+        모델 입히기
+        :return:
+        """
+        pass
 
     async def summary(self):
         return self.logit_model.summary()
@@ -64,4 +56,5 @@ class OceanModel:
 
     async def predict(self):
         # 예측 모델에 대해서 알아서 판단.
+        pass
 
