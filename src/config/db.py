@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 
 from src.config.secret import get_secret
 
+# postgresql
 conn = "postgresql+psycopg://{user}:{password}/{host}:{port}/{name}".format(
     user=get_secret('DB_USER'),
     password=get_secret('DB_PASSWORD'),

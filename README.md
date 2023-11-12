@@ -4,7 +4,7 @@
 
 ## 기술 스택
 
-- Python, FastAPI
+- Python 3.11 higher , FastAPI
 - SQLAlchemy 2.0, PostgreSQL
 - Scikit-Learn
 

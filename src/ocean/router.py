@@ -9,9 +9,8 @@ router = APIRouter(
 )
 
 
-@router.get("/")
-async def read_ocean(db: Session = Depends(get_db)):
-    pass
-
 @router.post("/")
-async def invp
+async def input_predict_data():
+    """
+    예측 데이터 설정
+    """

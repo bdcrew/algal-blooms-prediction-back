@@ -2,22 +2,15 @@
 name = "algal-blooms-prediction-back"
 version = "0.1.0"
 description = ""
-authors = ["hyeonproject <axzswq@gmail.com>"]
+authors = ["hyeonproject"]
 readme = "README.md"
-packages = [{include = "algal_blooms_prediction_back"}]
 
 [tool.poetry.dependencies]
-python = "^3.11"
-pandas = "^2.0.2"
-seaborn = "^0.12.2"
-psycopg = {extras = ["binary"], version = "^3.1.9"}
-sqlalchemy = {extras = ["asyncio"], version = "^2.0.15"}
-jupyter = "^1.0.0"
-scikit-learn = "^1.2.2"
+python = "3.12"
+fastapi = "^0.104.1"
+uvicorn = {extras = ["standard"], version = "^0.24.0.post1"}
+python-multipart = "^0.0.6"
 
-[tool.poetry.group.dev.dependencies]
-fastapi = "^0.96.0"
-uvicorn = {extras = ["starndar"], version = "^0.22.0"}
 
 [build-system]
 requires = ["poetry-core"]
