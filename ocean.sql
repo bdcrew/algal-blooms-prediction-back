@@ -75,3 +75,27 @@ comment on column ocean_all.screen_line is '조사선';
 alter table ocean_all
     owner to postgres;
 
+
+
+-- auto-generated definition
+create table waterline_marine_information
+(
+    observation_date             date,
+    temperature                  numeric,
+    salinity                     numeric,
+    dissolved_oxygen             numeric,
+    phosphate_phosphorus         numeric,
+    nitrous_acid_nitrogen        numeric,
+    nitric_acid_nitrogen         numeric,
+    silicic_acid_silicon         numeric,
+    harmful_algal_bloom_presence integer,
+    probability                  numeric
+);
+
+comment on table waterline_marine_information is '정선해양정보 및 유해적조발생여부';
+
+alter table waterline_marine_information
+    owner to postgres;
+
+
+
