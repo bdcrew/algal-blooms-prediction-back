@@ -2,8 +2,10 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from .config.db import Base, engine
+from .ocean.router import ocean_router
 
-app = FastAPI(version="0.0.1", title="Remake Ocean Project", description="Remake Ocean Project API")
+app = FastAPI(version="0.0.3", title="Remake Ocean Project", description="Remake Ocean Project API")
 
 origins = [
     "http://localhost",
@@ -31,6 +33,9 @@ async def health():
     return {"message": "health checking"}
 
 
-if __name__ == '__main__':
-    Base.metadata.create_all(engine)
-    uvicorn.run(app, reload=True, host='0.0.0.0', port=8000)
+# router list
+app.include_router(ocean_router)
+
+
+# if __name__ == '__main__':
+#     uvicorn.run(app, reload=True, host='0.0.0.0', port=8000)

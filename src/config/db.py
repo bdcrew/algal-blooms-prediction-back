@@ -1,19 +1,31 @@
 from sqlalchemy import create_engine, MetaData
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, DeclarativeBase
 
-from src.config.secret import get_secret
+from src.config.secret import get_os_secrets
+from sqlalchemy.ext.declarative import declarative_base
 
 # postgresql
-conn = "postgresql+psycopg://{user}:{password}/{host}:{port}/{name}".format(
-    user=get_secret('DB_USER'),
-    password=get_secret('DB_PASSWORD'),
-    host=get_secret('DB_HOST'),
-    port=get_secret('DB_PORT'),
-    name=get_secret('DB_NAME'),
+conn = "postgresql+psycopg://{user}:{password}@{host}:{port}/{name}".format(
+    user=get_os_secrets('DB_USER'),
+    password=get_os_secrets('DB_PASSWORD'),
+    host=get_os_secrets('DB_HOST'),
+    port=get_os_secrets('DB_PORT'),
+    name=get_os_secrets('DB_NAME'),
 )
+
 engine = create_engine(conn, echo=True, pool_size=20, max_overflow=0)
 
-metadata_obj = MetaData()
-metadata_obj.reflect(bind=engine)
+session = Session(engine, autoflush=False, autocommit=False)
 
-Session = Session(engine, autoflush=False, autocommit=False)
+
+class Base(DeclarativeBase):
+    pass
+
+
+def get_db():
+    db = session() # type: ignore
+    try:
+        yield db
+        db.commit()
+    finally:
+        db.close()
