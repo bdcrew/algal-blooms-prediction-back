@@ -1,6 +1,7 @@
 from math import exp
 
 import pandas as pd
+from sklearn.linear_model import LogisticRegression
 from fastapi import HTTPException
 from pandas import DataFrame, Series
 
@@ -25,20 +26,20 @@ async def logistic_ocean_data():
 
 class OceanModel:
     """
-    바다 모델에 대해서 작업하는 방법
+    로지스틱 회귀 모델 입혀보기
     """
     def __init__(self, dependent_variable: str = 'on_off', independent_variable: list[str] = None):
         self.dependent_variable = dependent_variable # 종속변수
         self.independent_variables = independent_variable # 독립변수
         self.independent_variables_with_constant = None
-        self.logit_model = None
+        self.logit_model = LogisticRegression()
 
     async def fit_model(self):
         """
         모델 입히기
         :return:
         """
-        pass
+        self.logit_model.fit(self.independent_variables_with_constant, self.dependent_variable)
 
     async def summary(self):
         return self.logit_model.summary()

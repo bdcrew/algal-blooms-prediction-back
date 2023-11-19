@@ -3,12 +3,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 
-app = FastAPI()
+app = FastAPI(version="0.0.1", title="Remake Ocean Project", description="Remake Ocean Project API")
 
 origins = [
     "http://localhost",
-    "http://localhost:8080",
-    "http://127.0.0.1:8080",
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
     "http://127.0.0.1",
 ]
 
@@ -32,4 +32,5 @@ async def health():
 
 
 if __name__ == '__main__':
-    uvicorn.run(host='0.0.0.0', port=80, reload=True)
+    Base.metadata.create_all(engine)
+    uvicorn.run(app, reload=True, host='0.0.0.0', port=8000)

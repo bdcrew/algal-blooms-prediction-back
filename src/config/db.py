@@ -11,7 +11,7 @@ conn = "postgresql+psycopg://{user}:{password}/{host}:{port}/{name}".format(
     port=get_secret('DB_PORT'),
     name=get_secret('DB_NAME'),
 )
-engine = create_engine(conn, echo=True)
+engine = create_engine(conn, echo=True, pool_size=20, max_overflow=0)
 
 metadata_obj = MetaData()
 metadata_obj.reflect(bind=engine)
