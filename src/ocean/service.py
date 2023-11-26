@@ -74,7 +74,6 @@ class OceanModel:
         p_values = [2 * (1 - stats.norm.cdf(np.abs(i))) for i in t_values]
 
         # 값 넣기
-
         return SummaryMapper(coefficients=coefficients, standard_errors=SE, t_values=t_values, p_values=p_values)
 
     async def predict_input_average(self):
