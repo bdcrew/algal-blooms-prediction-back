@@ -1,8 +1,7 @@
-from sqlalchemy import create_engine, MetaData
+from sqlalchemy import create_engine
 from sqlalchemy.orm import Session, DeclarativeBase
 
 from src.config.secret import get_os_secrets
-from sqlalchemy.ext.declarative import declarative_base
 
 # postgresql
 conn = "postgresql+psycopg://{user}:{password}@{host}:{port}/{name}".format(

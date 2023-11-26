@@ -1,23 +1,21 @@
 from math import exp
 
-import pandas as pd
-from sklearn.linear_model import LogisticRegression
-from fastapi import HTTPException
 from pandas import DataFrame
+from sklearn.linear_model import LogisticRegression
 from sqlalchemy.orm import Session
-from ocean.payload.ocean import IndependentVariablesPayload
 
-from ocean.repository.waterline_marine_information import WaterlineMarineInformationRepository
-from src.config.db import conn
+from src.ocean.payload.ocean import IndependentVariablesPayload
+from src.ocean.repository.waterline_marine_information import WaterlineMarineInformationRepository
 
 
 class OceanModel:
     """
     로지스틱 회귀 모델 입혀보기
     """
+
     def __init__(self, dependent_variable: str = '', independent_variable: list[str] = None):
-        self.dependent_variable = dependent_variable # 종속변수
-        self.independent_variables = independent_variable # 독립변수
+        self.dependent_variable = dependent_variable  # 종속변수
+        self.independent_variables = independent_variable  # 독립변수
         self.independent_variables_with_constant = None
         self.waterline_marine_info_df = None
         self.X_train = None
@@ -32,10 +30,9 @@ class OceanModel:
 
         self.waterline_marine_info_df = DataFrame(data)
         self.waterline_marine_info_df = self.waterline_marine_info_df.dropna()
-        
+
     async def split_train_data(self, payload: IndependentVariablesPayload):
         pass
-
 
     async def fit_model(self):
         """
@@ -49,7 +46,7 @@ class OceanModel:
 
     def __inverse_logit(self, model_formula: float):
         return 1.0 / (1.0 + exp(-model_formula))
-    
+
     async def predict_input_average(self):
         """
         평균값을 통한 예측값 나오도록 개발
@@ -57,8 +54,6 @@ class OceanModel:
         """
         pass
 
-
     async def predict(self):
         # 예측 모델에 대해서 알아서 판단.
         pass
-

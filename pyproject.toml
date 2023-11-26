@@ -6,11 +6,12 @@ authors = ["hyeonproject"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.11"
+python = "^3.11"
 fastapi = "^0.104.1"
 uvicorn = {extras = ["standard"], version = "^0.24.0.post1"}
 python-multipart = "^0.0.6"
 sqlalchemy = "^2.0.23"
+psycopg = {extras = ["binary"], version = "^3.1.13"}
 
 
 [build-system]

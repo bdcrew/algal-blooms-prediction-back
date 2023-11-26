@@ -1,5 +1,6 @@
 from pydantic import BaseModel
 
+
 class IndependentVariablesPayload(BaseModel):
     temperature: float | None
     salinity: float | None
@@ -7,4 +8,3 @@ class IndependentVariablesPayload(BaseModel):
     nitrous_acid_nitrogen: float | None
     nitric_acid_nitrogen: float | None
     silicic_acid_silicon: float | None
-    

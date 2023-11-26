@@ -1,8 +1,10 @@
 import datetime
-from sqlalchemy import Column, DateTime, Float, Integer
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+
+from sqlalchemy import DateTime, Float, Integer
+from sqlalchemy.orm import Mapped, mapped_column
 
 from src.config.db import Base, session
+
 
 class WaterlineMarineInfomation(Base):
     __tablename__ = "waterline_marine_information"

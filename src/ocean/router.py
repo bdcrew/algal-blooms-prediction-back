@@ -1,7 +1,4 @@
-from fastapi import APIRouter, Depends
-from sqlalchemy.orm import Session
-
-from ..config.db import get_db
+from fastapi import APIRouter
 
 ocean_router = APIRouter(
     prefix="/ocean",

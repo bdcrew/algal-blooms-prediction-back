@@ -1,6 +1,7 @@
 import datetime
 from pydantic import BaseModel
 
+
 class WaterlineMarineInfoMapper(BaseModel):
     observationd_date: datetime.datetime
     temperature: float
