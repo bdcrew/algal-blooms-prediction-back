@@ -1,9 +1,10 @@
 import logging
 
 import numpy as np
-from pandas import DataFrame
+import pandas as pd
 from scipy.stats import stats
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
 from sklearn.model_selection import train_test_split
 from sqlalchemy.orm import Session
 
@@ -13,7 +14,7 @@ from src.ocean.repository.waterline_marine_information import WaterlineMarineInf
 
 class OceanModel:
 
-    def __init__(self, dependent_variable: str = '', independent_variable: list[str] = None):
+    def __init__(self, dependent_variable: str = 'harmful_algal_bloom_presence', independent_variable: list[str] = None):
         self.dependent_variable = dependent_variable  # 종속변수
         self.independent_variables = independent_variable  # 독립변수
         self.waterline_marine_info_df = None
@@ -29,13 +30,13 @@ class OceanModel:
         waterline_marine_information_repository = WaterlineMarineInformationRepository(db)
         data = await waterline_marine_information_repository.get_all()
 
-        self.waterline_marine_info_df = DataFrame(data)
-        # self.waterline_marine_info_df = self.waterline_marine_info_df.dropna()
+        self.waterline_marine_info_df = pd.DataFrame(data)
+        self.waterline_marine_info_df = self.waterline_marine_info_df.dropna()
 
         self.y = self.waterline_marine_info_df['harmful_algal_bloom_presence'].astype(bool)
         self.X = self.waterline_marine_info_df[self.independent_variables]
 
-        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.4,
+        self.X_train, self.X_test, self.y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.3,
                                                                                 random_state=0)
         logging.info('success load_data')
 
@@ -73,6 +74,9 @@ class OceanModel:
         # P-값
         p_values = [2 * (1 - stats.norm.cdf(np.abs(i))) for i in t_values]
 
+        # 모델의 정확도 계산
+        accuracy = accuracy_score(self.y_train, preds)
+
         # 값 넣기
         return SummaryMapper(coefficients=coefficients, standard_errors=SE, t_values=t_values, p_values=p_values)
 
@@ -81,8 +85,18 @@ class OceanModel:
         평균값을 통한 예측값 나오도록 개발
         :return:
         """
+        averages = self.waterline_marine_info_df.mean()
+        averages = averages.drop('harmful_algal_bloom_presence')
+
+        # 예측값
+        preds = self.logit_model.predict(averages)
+
+        return preds
+
+    async def predict(sel):
+        """
+        예측
+        :return:
+        """
         pass
 
-    async def predict(self):
-        # 예측 모델에 대해서 알아서 판단.
-        pass

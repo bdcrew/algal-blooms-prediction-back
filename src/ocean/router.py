@@ -11,4 +11,6 @@ async def input_predict_data():
     """
     예측 데이터 설정
     """
-    pass
+    independent_variables = ['temperature', 'salinity', 'oxygen', 'silicate', 'phosphate', 'nitrate', 'ammonium']
+    return {"message": "success"}
+
